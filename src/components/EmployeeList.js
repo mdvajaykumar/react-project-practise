@@ -1,8 +1,14 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteEmployeeAction } from "../reducer/EmployeeReducer";
 
 export function EmployeeList() {
   const state = useSelector((state) => state);
+  const dispatch = useDispatch();
   console.log(state);
+
+  const deleteEmployee = (item, index) => {
+    dispatch(deleteEmployeeAction(index));
+  };
 
   return (
     <div style={{ height: "100vh" }}>
@@ -29,7 +35,12 @@ export function EmployeeList() {
               <td>{item.email}</td>
               <td>
                 <button className="btn btn-primary">edit</button> /{" "}
-                <button className="btn btn-primary">delete</button>
+                <button
+                  className="btn btn-primary"
+                  onClick={() => deleteEmployee(item, index)}
+                >
+                  delete
+                </button>
               </td>
             </tr>
           </tbody>

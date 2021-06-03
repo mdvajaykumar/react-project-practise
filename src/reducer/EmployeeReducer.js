@@ -19,7 +19,7 @@ export function updateEmployeeAction(payload) {
 }
 
 export function deleteEmployeeAction(payload) {
-  return { type: EMPLOYEE_CREATE, payload: payload };
+  return { type: EMPLOYEE_DELETE, payload: payload };
 }
 
 export function getAllEmployeeAction(payload) {
@@ -34,6 +34,11 @@ export function EmployeeReducer(state = initState, action) {
   switch (action.type) {
     case EMPLOYEE_CREATE:
       return { ...state, list: [action.payload, ...state.list] };
+
+    case EMPLOYEE_DELETE:
+      const oldList = state.list;
+      oldList.splice(action.payload, 1);
+      return { ...state, list: [...oldList] };
 
     default:
       return state;
