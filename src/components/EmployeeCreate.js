@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { createEmployeeAction } from "../reducer/EmployeeReducer";
 
 export function EmployeeCreate() {
@@ -7,6 +8,10 @@ export function EmployeeCreate() {
   const [password, setPassword] = useState("");
   const [mobile, setMobile] = useState("");
   const [email, setEmail] = useState("");
+
+  const history = useHistory();
+
+  const [operation, SetOperation] = useState(false);
 
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
@@ -26,6 +31,10 @@ export function EmployeeCreate() {
       })
     );
 
+    SetOperation(true);
+    setTimeout(() => SetOperation(false), 2000);
+    history.push("/employee-list");
+
     setName("");
     setPassword("");
     setMobile("");
@@ -35,6 +44,10 @@ export function EmployeeCreate() {
   return (
     <div style={{ height: "100vh" }}>
       <div className="alert alert-primary text-center">EmployeeCreatePage</div>
+
+      {operation && (
+        <div className="alert alert-success">Operation success</div>
+      )}
 
       <div className="m-2">
         <input
