@@ -1,13 +1,24 @@
 import { useDispatch, useSelector } from "react-redux";
-import { deleteEmployeeAction } from "../reducer/EmployeeReducer";
+import { useHistory } from "react-router-dom";
+import {
+  deleteEmployeeAction,
+  updateEmployeeAction,
+  updateRefEmployee,
+} from "../reducer/EmployeeReducer";
 
 export function EmployeeList() {
   const state = useSelector((state) => state);
   const dispatch = useDispatch();
   console.log(state);
+  const history = useHistory();
 
   const deleteEmployee = (item, index) => {
     dispatch(deleteEmployeeAction(index));
+  };
+
+  const updateEmployee = (item, index) => {
+    dispatch(updateRefEmployee(item));
+    history.push("/employee-create");
   };
 
   return (
@@ -34,7 +45,13 @@ export function EmployeeList() {
               <td>{item.mobile}</td>
               <td>{item.email}</td>
               <td>
-                <button className="btn btn-primary">edit</button> /{" "}
+                <button
+                  className="btn btn-primary"
+                  onClick={() => updateEmployee(item)}
+                >
+                  edit
+                </button>{" "}
+                /{" "}
                 <button
                   className="btn btn-primary"
                   onClick={() => deleteEmployee(item, index)}

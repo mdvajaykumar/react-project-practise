@@ -4,17 +4,17 @@ import { useHistory } from "react-router-dom";
 import { createEmployeeAction } from "../reducer/EmployeeReducer";
 
 export function EmployeeCreate() {
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
-  const [mobile, setMobile] = useState("");
-  const [email, setEmail] = useState("");
+  const state = useSelector((state) => state);
+  const [name, setName] = useState(state.employee.refemp.name);
+  const [password, setPassword] = useState(state.employee.refemp.password);
+  const [mobile, setMobile] = useState(state.employee.refemp.mobile);
+  const [email, setEmail] = useState(state.employee.refemp.email);
 
   const history = useHistory();
 
   const [operation, SetOperation] = useState(false);
 
   const dispatch = useDispatch();
-  const state = useSelector((state) => state);
 
   const updateName = (e) => setName(e.target.value);
   const updatePassword = (e) => setPassword(e.target.value);
